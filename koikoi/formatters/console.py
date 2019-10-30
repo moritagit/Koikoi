@@ -11,6 +11,7 @@ from koikoi.formatters.formatter import Formatter
 class Console(Formatter):
     """Formatter for console."""
     def format_turn(self, player: Player):
+        print()
         print(f'{player.name}の番です')
 
     def format_hand(self, player: Player):
@@ -36,6 +37,9 @@ class Console(Formatter):
         print('山札から1枚引きます')
         print(f'{card.name}が引かれました')
         print()
+
+    def format_double_cards(self, month):
+        print(f'{month}月の札が場に2枚あります')
 
     def format_yaku(self, updated_yaku: List[str]):
         for yaku in updated_yaku:

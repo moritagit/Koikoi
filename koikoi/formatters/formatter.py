@@ -31,6 +31,9 @@ class Formatter(object):
     def format_draw(self, card: Card):
         pass
 
+    def format_double_cards(self, month):
+        pass
+
     def format_yaku(self, updated_yaku: List[str]):
         pass
 

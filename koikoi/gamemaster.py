@@ -29,9 +29,9 @@ class GameMaster(object):
                 cards=[deck.pop() for _ in range(8)],
                 name='Human1',
             )
-            player2 = Human(
+            player2 = RandomCPU(
                 cards=[deck.pop() for _ in range(8)],
-                name='Human2',
+                name='Random2',
             )
         except AllSameMonthCardAppearanceError:
             print(AllSameMonthCardAppearanceError)
@@ -54,6 +54,7 @@ class GameMaster(object):
             self.field.remove(same_month_cards)
             player.share.extend([card] + same_month_cards)
         elif n_mathced == 2:
+            self.formatter.format_double_cards(card.month)
             selected_card = player.select_from_field(
                 same_month_cards, self.field, other,
             )
@@ -101,6 +102,7 @@ class GameMaster(object):
         point_data = self.point_calculator(player.share)
         point_data_old = player.point_data
         updated_yaku = self.check_point_update(point_data, point_data_old)
+        player.point_data = point_data
         self.formatter.format_yaku(updated_yaku)
 
         is_finish = False
@@ -110,7 +112,12 @@ class GameMaster(object):
 
         if is_finish:
             point = sum([val for val in player.point_data.values()])
-            self.finish_message = f'{point}で{player.name}の勝ちです。'
+            self.finish_message = f'{point}文で{player.name}の勝ちです。'
+            self.formatter.format_share(other)
+            self.formatter.format_hand(other)
+            self.formatter.format_field(self.field)
+            self.formatter.format_hand(player)
+            self.formatter.format_share(player)
 
         return is_finish
 
