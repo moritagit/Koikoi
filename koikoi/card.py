@@ -92,6 +92,8 @@ MONTH2CARD = {
     },
 }
 
+ROLE_CLASSES = ['light', 'seed', 'strip', 'kasu']
+
 
 class Card(object):
     """
@@ -119,7 +121,7 @@ class Card(object):
                 '``month`` must be an integer between 1 and 12, '
                 f'but {month} was input.'
             )
-        if role_class not in ['light', 'seed', 'strip', 'kasu']:
+        if role_class not in ROLE_CLASSES:
             raise ValueError(
                 f'Unknown ``role_class`` {role_class} was input. '
                 '``role_class`` must be chosen from [light, seed, strip, kasu]'
@@ -152,6 +154,16 @@ class Card(object):
 
     def __ne__(self, other) -> bool:
         return not (isinstance(other, Card) and (self.name == other.name))
+
+    def from_string(self, name):
+        target_flower, target_role = name.split('の')
+        for month, data in MONTH2CARD.items():
+            if target_flower == data['flower']:
+                for role_class in ROLE_CLASSES:
+                    for index, role in enumerate(data[role_class]):
+                        if target_role == role:
+                            return Card(month, role_class, index)
+        raise ValueError(f'{name} does not exist.')
 
 
 class Deck(object):
