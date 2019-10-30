@@ -15,12 +15,12 @@ class Human(Player):
     Parameters
     ----------
     cards : ``List[Card]``
-    name : ``str``, optional (default = 'Player')
+    name : ``str``, optional (default = 'Human')
     """
     def __init__(
         self,
         cards: List[Card],
-        name: str = 'Player',
+        name: str = 'Human',
     ) -> None:
 
         super().__init__(cards, name)
