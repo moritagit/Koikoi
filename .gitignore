@@ -3,6 +3,9 @@ log/*
 tmp/*
 private/*
 !.gitkeep
+app/static/images/*
+!.gitkeep
+
 
 
 # Created by https://www.gitignore.io/api/macos,flask,python,visualstudiocode
