@@ -31,7 +31,13 @@ class GameMaster(object):
 
         return deck, field, player1, player2
 
-    def put_card_to_field(self, card: Card, player: Player, other: Player):
+    def put_card_to_field(
+        self,
+        card: Card,
+        player: Player,
+        other: Player,
+    ) -> None:
+
         same_month_cards = self.field.get_same_month_cards(card)
         n_mathced = len(same_month_cards)
         if n_mathced == 0:
@@ -47,7 +53,7 @@ class GameMaster(object):
             player.share.extend([card, selected_card])
         return
 
-    def process_one_turn(self, player: Player, other: Player):
+    def process_one_turn(self, player: Player, other: Player) -> None:
         # select card from hand
         selected_card = player.select_from_hand(self.field, other)
         self.put_card_to_field(selected_card, player, other)
