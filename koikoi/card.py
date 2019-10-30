@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 
+import random
+from typing import List
+
+
 MONTH2CARD = {
     1: {
         'flower': '松',
@@ -150,3 +154,23 @@ class Card(object):
         return not (isinstance(other, Card) and (self.name == other.name))
 
 
+class Deck(object):
+    """Represents deck."""
+    def __init__(self):
+        self.cards = self.build()
+
+    def __len__(self):
+        return len(self.cards)
+
+    def build(self) -> List[Card]:
+        cards = []
+        for month in range(1, 13):
+            for role_class in ['light', 'seed', 'strip', 'kasu']:
+                for index, role in enumerate(MONTH2CARD[month][role_class]):
+                    card = Card(month, role_class, index)
+                    cards.append(card)
+        random.shuffle(cards)
+        return cards
+
+    def pop(self):
+        return self.cards.pop(0)
