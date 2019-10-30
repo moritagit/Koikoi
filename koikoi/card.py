@@ -137,8 +137,8 @@ class Card(object):
         self.index = index
 
         flower = MONTH2CARD[month]['flower']
-        role = MONTH2CARD[month][role_class][index]
-        self.name = f'{flower}の{role}'
+        self.role = MONTH2CARD[month][role_class][index]
+        self.name = f'{flower}の{self.role}'
 
     def __repr__(self) -> str:
         return self.name
