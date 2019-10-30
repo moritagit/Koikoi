@@ -1,17 +1,23 @@
 # -*- coding: utf-8 -*-
 
 
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 
 from koikoi.card import Card, Deck
 from koikoi.field import Field, AllSameMonthCardAppearanceError
+from point_calculator import PointCalculator
 from koikoi.players import Player, Human, RandomCPU
 
 
 class GameMaster(object):
     """Game master for Koikoi."""
     def __init__(self) -> None:
-        self.deck, self.field, self.player1, self.player2 = self.build()
+        self.deck = None
+        self.field = None
+        self.player1 = None
+        self.player2 = None
+        self.point_calculator = PointCalculator()
+        self.finish_message = '流れです。'
 
     def build(self) -> Tuple[Deck, Field, Player, Player]:
         try:
@@ -53,6 +59,22 @@ class GameMaster(object):
             player.share.extend([card, selected_card])
         return
 
+    def check_point_update(
+        self,
+        point_data: Dict[str, int],
+        point_data_old: Dict[str, int],
+    ) -> List[str]:
+
+        updated_yaku = []
+        for key in point_data.keys():
+            point = point_data[key]
+            point_old = point_data_old[key]
+            diff = point - point_old
+            was_updated = (diff > 0)
+            if was_updated:
+                updated_yaku.append(key)
+        return updated_yaku
+
     def process_one_turn(self, player: Player, other: Player) -> None:
         # select card from hand
         selected_card = player.select_from_hand(self.field, other)
@@ -63,3 +85,28 @@ class GameMaster(object):
         self.put_card_to_field(drawn_card, player, other)
 
         # calc point
+        point_data = self.point_calculator(player.share)
+        point_data_old = player.point_data
+        updated_yaku = self.check_point_update(point_data, point_data_old)
+
+        is_finish = False
+        if updated_yaku:
+            is_koikoi = player.koikoi(self.field, other)
+            is_finish = (not is_koikoi)
+
+        if is_finish:
+            point = sum([val for val in player.point_data.values()])
+            self.finish_message = f'{point}で{player.name}の勝ちです。'
+
+        return is_finish
+
+    def run(self):
+        self.deck, self.field, self.player1, self.player2 = self.build()
+        while self.player1.hand or self.player2.hand:
+            is_finish = self.process_one_turn(self.player1, self.player2)
+            if is_finish:
+                break
+
+            is_finish = self.process_one_turn(self.player2, self.player1)
+            if is_finish:
+                break
