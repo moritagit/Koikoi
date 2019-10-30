@@ -26,10 +26,12 @@ class PointCalculator(object):
             for name in __predefined_card_names
         }
 
-    def calc_point(self, share: ShareCards) -> Dict[str, int]:
+    def __call__(self, share: ShareCards) -> Dict[str, int]:
         # make abbriviations
         y2p = PointCalculator.YAKU2POINT
         n2c = self._name2card
+
+        # init point data
         point_data = {yaku: 0 for yaku in y2p.keys()}
 
         # hikari
