@@ -5,6 +5,7 @@ from typing import List
 
 from koikoi.card import Card, ShareCards
 from koikoi.field import Field
+from point_calculator import PointCalculator
 
 
 class Player(object):
@@ -22,9 +23,12 @@ class Player(object):
         name: str = 'Player',
     ) -> None:
 
-        self.hand = cards
         self.name = name
+        self.hand = cards
         self.share = ShareCards()
+        self.point_data = {
+            yaku: 0 for yaku in PointCalculator.YAKU2POINT.keys()
+        }
 
     def select_from_hand(self, field: Field, other) -> Card:
         """
