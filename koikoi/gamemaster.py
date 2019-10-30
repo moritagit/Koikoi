@@ -6,6 +6,7 @@ from typing import Dict, List, Tuple
 from koikoi.card import Card, Deck
 from koikoi.field import Field, AllSameMonthCardAppearanceError
 from point_calculator import PointCalculator
+from koikoi.formatters import Formatter, Console
 from koikoi.players import Player, Human, RandomCPU
 
 
@@ -17,6 +18,7 @@ class GameMaster(object):
         self.player1 = None
         self.player2 = None
         self.point_calculator = PointCalculator()
+        self.formatter = Console()
         self.finish_message = '流れです。'
 
     def build(self) -> Tuple[Deck, Field, Player, Player]:
@@ -76,18 +78,28 @@ class GameMaster(object):
         return updated_yaku
 
     def process_one_turn(self, player: Player, other: Player) -> None:
+        # show
+        self.formatter.format_share(other)
+        self.formatter.format_hand(other)
+        self.formatter.format_field(self.field)
+        self.formatter.format_hand(player)
+        self.formatter.format_share(player)
+
         # select card from hand
         selected_card = player.select_from_hand(self.field, other)
         self.put_card_to_field(selected_card, player, other)
+        self.formatter.format_card_selection(selected_card)
 
         # draw card from deck
         drawn_card = self.deck.pop()
         self.put_card_to_field(drawn_card, player, other)
+        self.formatter.format_draw(drawn_card)
 
         # calc point
         point_data = self.point_calculator(player.share)
         point_data_old = player.point_data
         updated_yaku = self.check_point_update(point_data, point_data_old)
+        self.formatter.format_yaku(updated_yaku)
 
         is_finish = False
         if updated_yaku:
@@ -101,7 +113,10 @@ class GameMaster(object):
         return is_finish
 
     def run(self):
+        # init
         self.deck, self.field, self.player1, self.player2 = self.build()
+
+        # run
         while self.player1.hand or self.player2.hand:
             is_finish = self.process_one_turn(self.player1, self.player2)
             if is_finish:
@@ -110,3 +125,5 @@ class GameMaster(object):
             is_finish = self.process_one_turn(self.player2, self.player1)
             if is_finish:
                 break
+
+        self.formatter.format_end_message(self.finish_message)
