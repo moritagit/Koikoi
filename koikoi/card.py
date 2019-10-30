@@ -155,6 +155,48 @@ class Card(object):
     def __ne__(self, other) -> bool:
         return not (isinstance(other, Card) and (self.name == other.name))
 
+    def __lt__(self, other):
+        if self.month < other.month:
+            return True
+        elif self.month > other.month:
+            return False
+        else:
+            # if is same month
+            if (
+                ROLE_CLASSES.index(self.role_class)
+                < ROLE_CLASSES.index(other.role_class)
+            ):
+                return True
+            elif (
+                ROLE_CLASSES.index(self.role_class)
+                > ROLE_CLASSES.index(other.role_class)
+            ):
+                return False
+            else:
+                # if is same month and role class (kasu only)
+                return (self.index < other.index)
+
+    def __gt__(self, other):
+        if self.month > other.month:
+            return True
+        elif self.month < other.month:
+            return False
+        else:
+            # if is same month
+            if (
+                ROLE_CLASSES.index(self.role_class)
+                > ROLE_CLASSES.index(other.role_class)
+            ):
+                return True
+            elif (
+                ROLE_CLASSES.index(self.role_class)
+                < ROLE_CLASSES.index(other.role_class)
+            ):
+                return False
+            else:
+                # if is same month and role class (kasu only)
+                return (self.index > other.index)
+
     def from_string(self, name):
         target_flower, target_role = name.split('の')
         for month, data in MONTH2CARD.items():
