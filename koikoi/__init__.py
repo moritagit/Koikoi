@@ -4,6 +4,7 @@ from point_calculator import PointCalculator
 from koikoi.formatters import Formatter, Console
 from koikoi.players import Player
 from koikoi.players import Human, RandomCPU
+from koikoi.gamemaster import GameMaster
 
 
 __all__ = [
@@ -15,5 +16,6 @@ __all__ = [
     'Console',
     'Player',
     'Human',
-    'RandomCPU'
+    'RandomCPU',
+    'GameMaster',
 ]
