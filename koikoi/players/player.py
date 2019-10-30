@@ -5,7 +5,7 @@ from typing import List
 
 from koikoi.card import Card, ShareCards
 from koikoi.field import Field
-from point_calculator import PointCalculator
+from koikoi.point_calculator import PointCalculator
 
 
 class Player(object):

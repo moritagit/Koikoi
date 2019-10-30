@@ -35,38 +35,41 @@ class PointCalculator(object):
         point_data = {yaku: 0 for yaku in y2p.keys()}
 
         # hikari
-        if len(share.lights) == 5:
+        if len(share.data['light']) == 5:
             point_data['五光'] = y2p['五光']
-        elif len(share.lights) == 4:
-            if n2c['柳の小野道風'] in share.lights:
+        elif len(share.data['light']) == 4:
+            if n2c['柳の小野道風'] in share.data['light']:
                 point_data['雨四光'] = y2p['雨四光']
             else:
                 point_data['四光'] = y2p['四光']
-        elif ((len(share.lights) == 3) and (n2c['柳の小野道風'] in share.lights)):
+        elif (
+            (len(share.data['light']) == 3)
+            and (n2c['柳の小野道風'] in share.data['light'])
+        ):
             point_data['三光'] = y2p['三光']
 
         # sake
-        if n2c['菊の盃'] in share.seeds:
-            if n2c['桜の幕'] in share.lights:
+        if n2c['菊の盃'] in share.data['seed']:
+            if n2c['桜の幕'] in share.data['light']:
                 point_data['花見酒'] = y2p['花見酒']
-            elif n2c['芒の月'] in share.lights:
+            elif n2c['芒の月'] in share.data['light']:
                 point_data['月見酒'] = y2p['月見酒']
 
         # tane
-        n_seeds = len(share.seeds)
+        n_seed = len(share.data['seed'])
         if (
-            n2c['萩の猪'] in share.seeds
-            and n2c['紅葉の鹿'] in share.seeds
-            and n2c['牡丹の蝶'] in share.seeds
+            n2c['萩の猪'] in share.data['seed']
+            and n2c['紅葉の鹿'] in share.data['seed']
+            and n2c['牡丹の蝶'] in share.data['seed']
         ):
             point_data['猪鹿蝶'] = y2p['猪鹿蝶']
-            point_data['たね'] = y2p['たね'] * (n_seeds - 3)
-        elif n_seeds >= 5:
-            point_data['たね'] = y2p['たね'] * (n_seeds - 4)
+            point_data['たね'] = y2p['たね'] * (n_seed - 3)
+        elif n_seed >= 5:
+            point_data['たね'] = y2p['たね'] * (n_seed - 4)
 
         # tanzaku
-        tan_roles = [card.role for card in share.strips]
-        n_tan = len(share.strips)
+        tan_roles = [card.role for card in share.data['strip']]
+        n_tan = len(share.data['strip'])
         is_akatan = (tan_roles.count('赤短') == 3)
         is_aotan = (tan_roles.count('青短') == 3)
         if is_akatan and is_aotan:
@@ -82,10 +85,10 @@ class PointCalculator(object):
             point_data['たん'] = y2p['たん'] * (n_tan - 4)
 
         # kasu
-        n_kasu = len(share.kasu)
-        if n2c['菊の盃'] in share.seeds:
+        n_kasu = len(share.data['kasu'])
+        if n2c['菊の盃'] in share.data['seed']:
             n_kasu += 1
         if n_kasu >= 10:
-            point_data['かす'] = y2p['かす'] * (n_tan - 9)
+            point_data['かす'] = y2p['かす'] * (n_kasu - 9)
 
         return point_data

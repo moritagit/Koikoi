@@ -20,7 +20,7 @@ class Console(Formatter):
 
     def format_share(self, player: Player):
         print(f'{player.name}の取り札')
-        print(player.share)
+        print(player.share.data)
         print()
 
     def format_field(self, field: Field):

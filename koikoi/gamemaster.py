@@ -5,7 +5,7 @@ from typing import Dict, List, Tuple
 
 from koikoi.card import Card, Deck
 from koikoi.field import Field, AllSameMonthCardAppearanceError
-from point_calculator import PointCalculator
+from koikoi.point_calculator import PointCalculator
 from koikoi.formatters import Formatter, Console
 from koikoi.players import Player, Human, RandomCPU
 
@@ -84,9 +84,11 @@ class GameMaster(object):
         self.formatter.format_field(self.field)
         self.formatter.format_hand(player)
         self.formatter.format_share(player)
+        self.formatter.format_turn(player)
 
         # select card from hand
         selected_card = player.select_from_hand(self.field, other)
+        player.hand.remove(selected_card)
         self.put_card_to_field(selected_card, player, other)
         self.formatter.format_card_selection(selected_card)
 

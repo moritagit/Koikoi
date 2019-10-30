@@ -84,8 +84,8 @@ MONTH2CARD = {
         'kasu': ['カス'],
     },
     12: {
-        'flower': '鳳凰',
-        'light': [],
+        'flower': '桐',
+        'light': ['鳳凰'],
         'seed': [],
         'strip': [],
         'kasu': ['カス1', 'カス2', 'カス3'],
@@ -116,7 +116,7 @@ class Card(object):
         index: int = 0,
     ) -> None:
 
-        if (1 <= month <= 12):
+        if not (1 <= month <= 12):
             raise ValueError(
                 '``month`` must be an integer between 1 and 12, '
                 f'but {month} was input.'
@@ -197,7 +197,8 @@ class Card(object):
                 # if is same month and role class (kasu only)
                 return (self.index > other.index)
 
-    def from_string(self, name):
+    @classmethod
+    def from_string(cls, name):
         target_flower, target_role = name.split('の')
         for month, data in MONTH2CARD.items():
             if target_flower == data['flower']:
