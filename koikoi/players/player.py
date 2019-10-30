@@ -26,7 +26,7 @@ class Player(object):
         self.name = name
         self.share = ShareCards()
 
-    def select_from_hand(self, field, other) -> Card:
+    def select_from_hand(self, field: Field, other) -> Card:
         """
         Selects card from hand in this player's turn.
 
@@ -41,13 +41,19 @@ class Player(object):
         """
         raise NotImplementedError()
 
-    def select_from_field(self, field, other) -> Card:
+    def select_from_field(
+        self,
+        choices: List[Card],
+        field: Field,
+        other,
+    ) -> Card:
         """
         Selects card from field when two cards are the same month
         as the player put on the field.
 
         Paramteres
         ----------
+        choices : ``List[Card]``
         field : ``Field``
         other : ``Player``
 
@@ -57,7 +63,7 @@ class Player(object):
         """
         raise NotImplementedError()
 
-    def koikoi(self, field, other) -> bool:
+    def koikoi(self, field: Field, other) -> bool:
         """
         Determines whether to koikoi or not.
 
