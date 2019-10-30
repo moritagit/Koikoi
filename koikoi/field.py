@@ -82,5 +82,5 @@ class AllSameMonthCardAppearanceError(Exception):
     def __init__(self, month: int) -> None:
         self.__message = f'{month}月の札が4枚場に出てしまったのでやり直します。'
 
-    def __repr__(self) -> str:
+    def __str__(self) -> str:
         return self.__message
