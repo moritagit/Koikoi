@@ -30,7 +30,7 @@ class RandomCPU(Player):
         return random.choice(choices)
 
     def select_from_hand(self, field: Field, other: Player) -> Card:
-        return self.select_card_randomly(field.cards)
+        return self.select_card_randomly(self.hand)
 
     def select_from_field(
         self,
