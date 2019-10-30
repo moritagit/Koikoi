@@ -25,6 +25,9 @@ class Field(object):
     def __len__(self) -> int:
         return len(self.cards)
 
+    def __contains__(self, card: Card) -> bool:
+        return (card in self.cards)
+
     def build(self, deck: Deck) -> List[Card]:
         cards = []
         for _ in range(8):
