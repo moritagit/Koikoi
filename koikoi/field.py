@@ -22,7 +22,7 @@ class Field(object):
             if months.count(month) == 4:
                 raise AllSameMonthCardAppearanceError(month)
 
-    def __len__(self) -> None:
+    def __len__(self) -> int:
         return len(self.cards)
 
     def build(self, deck: Deck) -> List[Card]:
@@ -79,8 +79,8 @@ class AllSameMonthCardAppearanceError(Exception):
     ----------
     month : ``int``
     """
-    def __init__(self, month: int):
+    def __init__(self, month: int) -> None:
         self.__message = f'{month}月の札が4枚場に出てしまったのでやり直します。'
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__message

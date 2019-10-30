@@ -138,28 +138,28 @@ class Card(object):
         role = MONTH2CARD[month][role_class][index]
         self.name = f'{flower}の{role}'
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.name
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     def __hash__(self):
         return hash(self.name)
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return isinstance(other, Card) and (self.name == other.name)
 
-    def __ne__(self, other):
+    def __ne__(self, other) -> bool:
         return not (isinstance(other, Card) and (self.name == other.name))
 
 
 class Deck(object):
     """Represents deck."""
-    def __init__(self):
+    def __init__(self) -> None:
         self.cards = self.build()
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.cards)
 
     def build(self) -> List[Card]:
@@ -172,5 +172,5 @@ class Deck(object):
         random.shuffle(cards)
         return cards
 
-    def pop(self):
+    def pop(self) -> Card:
         return self.cards.pop(0)
