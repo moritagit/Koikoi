@@ -205,7 +205,22 @@ class Card(object):
                     for index, role in enumerate(data[role_class]):
                         if target_role == role:
                             return Card(month, role_class, index)
-        raise ValueError(f'{name} does not exist.')
+        raise UnknownCardNameError(name)
+
+
+class UnknownCardNameError(Exception):
+    """
+    Raised when Card.from_string method meets unknown card name.
+
+    Parameters
+    ----------
+    name : ``str``
+    """
+    def __init__(self, name: str) -> None:
+        self.__message = f'{name} does not exist.'
+
+    def __str__(self) -> str:
+        return self.__message
 
 
 class Deck(object):
