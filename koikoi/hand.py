@@ -7,6 +7,7 @@ from koikoi.card import Card
 
 
 class Hand(object):
+    """Represents player's hands."""
     def __init__(self) -> None:
         self.data = {
             'light': [],
