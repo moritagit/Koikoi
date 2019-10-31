@@ -14,7 +14,7 @@ class GameMaster(object):
     """Game master for Koikoi."""
     def __init__(self) -> None:
         self.deck = None
-        self.field = None
+        self.field = Field()
         self.player1 = None
         self.player2 = None
         self.point_calculator = PointCalculator()
@@ -24,7 +24,7 @@ class GameMaster(object):
     def build(self) -> Tuple[Deck, Field, Player, Player]:
         try:
             deck = Deck()
-            field = Field(deck)
+            self.field.build(deck)
             player1 = Human(
                 cards=[deck.pop() for _ in range(8)],
                 name='Human1',

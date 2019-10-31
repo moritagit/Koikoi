@@ -7,20 +7,9 @@ from koikoi.card import Card, Deck
 
 
 class Field(object):
-    """
-    Field for Koikoi.
-
-    Parameters
-    ----------
-    deck : ``Deck``
-    """
-    def __init__(self, deck: Deck) -> None:
-        self.cards = self.build(deck)
-
-        months = [card.month for card in self.cards]
-        for month in range(1, 13):
-            if months.count(month) == 4:
-                raise AllSameMonthCardAppearanceError(month)
+    """Field for Koikoi."""
+    def __init__(self) -> None:
+        self.cards = []
 
     def __len__(self) -> int:
         return len(self.cards)
@@ -29,9 +18,20 @@ class Field(object):
         return (card in self.cards)
 
     def build(self, deck: Deck) -> List[Card]:
+        """
+        Parameters
+        ----------
+        deck : ``Deck``
+        """
         cards = []
         for _ in range(8):
             cards.append(deck.pop())
+
+        months = [card.month for card in cards]
+        for month in range(1, 13):
+            if months.count(month) == 4:
+                raise AllSameMonthCardAppearanceError(month)
+
         return cards
 
     def append(self, card: Card) -> None:
@@ -83,7 +83,7 @@ class AllSameMonthCardAppearanceError(Exception):
     month : ``int``
     """
     def __init__(self, month: int) -> None:
-        self.__message = f'{month}月の札が4枚場に出てしまったのでやり直します。'
+        self.__message = f'{month}月の札が4枚場に出てしまいました。'
 
     def __str__(self) -> str:
         return self.__message
