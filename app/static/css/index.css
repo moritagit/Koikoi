@@ -3,17 +3,17 @@ body{
 }
 .field{
     background    : #FFFFCC;
-    margin-bottom : 50px;
+    margin : 50px;
 }
 .share{
     background    : #FFFFCC;
-    margin-bottom : 50px;
+    margin : 50px;
 }
 .hand_player{
     background    : #FFFFCC;
-    margin-bottom : 50px;
+    margin : 50px;
 }
 .hand_other{
     background    : #FFFFCC;
-    margin-bottom : 50px;
+    margin : 50px;
 }
