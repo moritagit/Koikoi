@@ -27,6 +27,8 @@ class GameMaster(object):
         self.player2 = player2
         self.formatter = formatter
 
+        self.is_finished = False
+
     def build(self) -> None:
         def _make_deck_and_field():
             try:
@@ -43,6 +45,7 @@ class GameMaster(object):
         _make_deck_and_field()
         _distribute_card(self.player1)
         _distribute_card(self.player2)
+        self.is_finished = False
 
     def put_card_to_field(
         self,
@@ -141,6 +144,7 @@ class GameMaster(object):
             message = f'{point}文で{player.name}の勝ちです。'
             self.formatter.format_end_message(message)
 
+        self.is_finished = is_finished
         return is_finished
 
     def run(self):
@@ -158,6 +162,7 @@ class GameMaster(object):
                 break
 
             is_finished = (self.player1.hand or self.player2.hand)
+            self.is_finished = is_finished
 
         if is_draw:
             self.formatter.format_end_message('流れです')
