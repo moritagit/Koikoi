@@ -24,8 +24,8 @@ def main():
 
 @app.route('/select', methods=['POST'])
 def select():
-    gamemaster.build()
     selected_card = koikoi.Card.from_string(request.form['selected'])
+    gamemaster.build()
 
     return render_template(
         'index.html',
