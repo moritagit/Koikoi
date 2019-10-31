@@ -14,21 +14,23 @@ class Player(object):
 
     Parameters
     ----------
-    cards : ``List[Card]``
     name : ``str``, optional (default = 'Player')
     """
-    def __init__(
-        self,
-        cards: List[Card],
-        name: str = 'Player',
-    ) -> None:
-
+    def __init__(self, name: str = 'Player') -> None:
         self.name = name
-        self.hand = cards
+        self.hand = []
         self.share = ShareCards()
         self.point_data = {
             yaku: 0 for yaku in PointCalculator.YAKU2POINT.keys()
         }
+
+    def build(self, cards: List[Card]):
+        """
+        Parameters
+        ----------
+        cards : ``List[Card]``
+        """
+        self.hand = sorted(cards)
 
     def select_from_hand(self, field: Field, other) -> Card:
         """
