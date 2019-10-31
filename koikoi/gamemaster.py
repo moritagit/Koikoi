@@ -142,7 +142,7 @@ class GameMaster(object):
         return is_finished
 
     def run(self):
-        is_finished = True
+        is_finished = False
         is_draw = True
         while is_finished:
             is_finished = self.process_one_turn(self.player1, self.player2)
