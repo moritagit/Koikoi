@@ -13,29 +13,41 @@ class Formatter(object):
     An abstract class for formatters.
     Formatter outputs cards in field and player hands.
     """
-    def format_turn(self, player: Player):
+    def __call__(self, message: str) -> None:
         pass
 
-    def format_hand(self, player: Player):
+    def format_hand(self, player: Player) -> None:
         pass
 
-    def format_share(self, player: Player):
+    def format_share(self, player: Player) -> None:
         pass
 
-    def format_field(self, field: Field):
+    def format_field(self, field: Field) -> None:
         pass
 
-    def format_card_selection(self, card: Card):
+    def format_yaku_update(self, updated_yaku: List[str]) -> None:
         pass
 
-    def format_draw(self, card: Card):
+    def format_yaku(self, point_data: List[str]) -> None:
         pass
 
-    def format_double_cards(self, month):
+    def format_turn(self, player: Player) -> None:
         pass
 
-    def format_yaku(self, updated_yaku: List[str]):
+    def format_card_selection(self, card: Card) -> None:
         pass
 
-    def format_end_message(self, message: str):
+    def format_draw(self, card: Card) -> None:
+        pass
+
+    def format_get_cards(self, cards: List[Card]) -> None:
+        pass
+
+    def format_to_field(self, card: Card) -> None:
+        pass
+
+    def format_double_cards(self, month) -> None:
+        pass
+
+    def format_end_message(self, message: str) -> None:
         pass
