@@ -17,7 +17,7 @@ class Field(object):
     def __contains__(self, card: Card) -> bool:
         return (card in self.cards)
 
-    def build(self, deck: Deck) -> List[Card]:
+    def build(self, deck: Deck) -> None:
         """
         Parameters
         ----------
@@ -32,7 +32,7 @@ class Field(object):
             if months.count(month) == 4:
                 raise AllSameMonthCardAppearanceError(month)
 
-        return cards
+        self.cards = cards
 
     def append(self, card: Card) -> None:
         self.cards.append(card)
