@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 from koikoi.card import Card, Deck
 from koikoi.field import Field, AllSameMonthCardAppearanceError
@@ -12,32 +12,38 @@ from koikoi.players import Player, Human, RandomCPU
 
 class GameMaster(object):
     """Game master for Koikoi."""
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        player1: Player = Human(),
+        player2: Player = RandomCPU(),
+        formatter: Formatter = Console(),
+    ) -> None:
+
         self.deck = None
         self.field = Field()
-        self.player1 = None
-        self.player2 = None
+        self.player1 = player1
+        self.player2 = player2
         self.point_calculator = PointCalculator()
-        self.formatter = Console()
+        self.formatter = formatter
+
         self.finish_message = '流れです。'
 
-    def build(self) -> Tuple[Deck, Field, Player, Player]:
-        try:
-            deck = Deck()
-            self.field.build(deck)
-            player1 = Human(
-                cards=[deck.pop() for _ in range(8)],
-                name='Human1',
-            )
-            player2 = RandomCPU(
-                cards=[deck.pop() for _ in range(8)],
-                name='Random2',
-            )
-        except AllSameMonthCardAppearanceError:
-            print(AllSameMonthCardAppearanceError)
-            deck, field, player1, player2 = self.build()
+    def build(self) -> None:
+        def _make_deck_and_field():
+            try:
+                self.deck = Deck()
+                self.field.build(self.deck)
+            except AllSameMonthCardAppearanceError:
+                print(AllSameMonthCardAppearanceError)
+                _make_deck_and_field()
+            return
 
-        return deck, field, player1, player2
+        def _distribute_card(player):
+            player.build([self.deck.pop() for _ in range(8)])
+
+        _make_deck_and_field()
+        _distribute_card(self.player1)
+        _distribute_card(self.player2)
 
     def put_card_to_field(
         self,
