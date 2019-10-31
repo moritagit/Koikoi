@@ -14,16 +14,10 @@ class Human(Player):
 
     Parameters
     ----------
-    cards : ``List[Card]``
     name : ``str``, optional (default = 'Human')
     """
-    def __init__(
-        self,
-        cards: List[Card],
-        name: str = 'Human',
-    ) -> None:
-
-        super().__init__(cards, name)
+    def __init__(self, name: str = 'Human') -> None:
+        super().__init__(name)
 
     def select_card_from_name(
         self,

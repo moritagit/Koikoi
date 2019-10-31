@@ -21,8 +21,8 @@ class GameMaster(object):
 
         self.deck = None
         self.field = Field()
-        self.player1 = player1
-        self.player2 = player2
+        self.player1 = player1()
+        self.player2 = player2()
         self.point_calculator = PointCalculator()
         self.formatter = formatter
 
