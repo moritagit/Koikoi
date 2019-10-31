@@ -29,6 +29,15 @@ def main():
 
 @app.route('/select', methods=['POST'])
 def select():
+    if gamemaster.is_finished:
+        return render_template(
+            'index.html',
+            message='初めからを押してください',
+            field=gamemaster.field,
+            player=gamemaster.player1,
+            other=gamemaster.player2,
+        )
+
     message = ''
 
     # human turn
