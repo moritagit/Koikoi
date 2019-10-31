@@ -12,8 +12,7 @@ app = Flask(__name__)
 @app.route('/')
 def main():
     gamemaster = koikoi.GameMaster()
-    gamemaster.deck, gamemaster.field, gamemaster.player1, gamemaster.player2 = gamemaster.build()
-
+    gamemaster.build()
 
     return render_template(
         'index.html',
@@ -28,7 +27,7 @@ def select():
     selected_card = koikoi.Card.from_string(request.form['selected'])
 
     gamemaster = koikoi.GameMaster()
-    gamemaster.deck, gamemaster.field, gamemaster.player1, gamemaster.player2 = gamemaster.build()
+    gamemaster.build()
 
     return render_template(
         'index.html',
