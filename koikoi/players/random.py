@@ -15,9 +15,9 @@ class RandomCPU(Player):
 
     Parameters
     ----------
-    name : ``str``, optional (default = 'Human')
+    name : ``str``, optional (default = 'RandomCPU')
     """
-    def __init__(self, name: str = 'Human') -> None:
+    def __init__(self, name: str = 'RandomCPU') -> None:
         super().__init__(name)
 
     def select_card_randomly(self, choices: List[Card]) -> Card:

@@ -134,10 +134,6 @@ class GameMaster(object):
         return is_finish
 
     def run(self):
-        # init
-        self.deck, self.field, self.player1, self.player2 = self.build()
-
-        # run
         while self.player1.hand or self.player2.hand:
             is_finish = self.process_one_turn(self.player1, self.player2)
             if is_finish:
