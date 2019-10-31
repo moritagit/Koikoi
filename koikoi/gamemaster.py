@@ -17,6 +17,7 @@ class GameMaster(object):
         player1: Player = Human(),
         player2: Player = RandomCPU(),
         formatter: Formatter = Console(),
+        show_others_hand: bool = False,
     ) -> None:
 
         self.deck = None
@@ -26,6 +27,7 @@ class GameMaster(object):
         self.player1 = player1
         self.player2 = player2
         self.formatter = formatter
+        self.show_others_hand = show_others_hand
 
         self.finish_message = '流れです。'
 
@@ -88,7 +90,8 @@ class GameMaster(object):
     def process_one_turn(self, player: Player, other: Player) -> None:
         # show
         self.formatter.format_share(other)
-        self.formatter.format_hand(other)
+        if self.show_others_hand:
+            self.formatter.format_hand(other)
         self.formatter.format_field(self.field)
         self.formatter.format_hand(player)
         self.formatter.format_share(player)
