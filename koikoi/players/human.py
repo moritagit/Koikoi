@@ -15,9 +15,16 @@ class Human(Player):
     Parameters
     ----------
     name : ``str``, optional (default = 'Human')
+        Player name.
+    display_hand : ``bool``, optional (default = True)
+        Determines whether to display hands.
     """
-    def __init__(self, name: str = 'Human') -> None:
-        super().__init__(name)
+    def __init__(
+        self,
+        name: str = 'Human',
+        display_hand: bool = True,
+    ) -> None:
+        super().__init__(name, display_hand)
 
     def select_card_from_name(
         self,

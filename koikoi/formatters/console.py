@@ -14,9 +14,10 @@ class Console(Formatter):
         print(message)
 
     def format_hand(self, player: Player) -> None:
-        print(f'{player.name}の手札')
-        print(player.hand)
-        print()
+        if player.display_hand:
+            print(f'{player.name}の手札')
+            print(player.hand)
+            print()
 
     def format_share(self, player: Player) -> None:
         print(f'{player.name}の取り札')

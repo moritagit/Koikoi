@@ -15,9 +15,19 @@ class Player(object):
     Parameters
     ----------
     name : ``str``, optional (default = 'Player')
+        Player name.
+    display_hand : ``bool``, optional (default = True)
+        Determines whether to display hands.
     """
-    def __init__(self, name: str = 'Player') -> None:
+    def __init__(
+        self,
+        name: str = 'Player',
+        display_hand: bool = True,
+    ) -> None:
+
         self.name = name
+        self.display_hand = display_hand
+
         self.hand = []
         self.share = ShareCards()
         self.point_data = {

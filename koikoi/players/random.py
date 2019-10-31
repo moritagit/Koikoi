@@ -16,9 +16,16 @@ class RandomCPU(Player):
     Parameters
     ----------
     name : ``str``, optional (default = 'RandomCPU')
+        Player name.
+    display_hand : ``bool``, optional (default = False)
+        Determines whether to display hands.
     """
-    def __init__(self, name: str = 'RandomCPU') -> None:
-        super().__init__(name)
+    def __init__(
+        self,
+        name: str = 'RandomCPU',
+        display_hand: bool = False,
+    ) -> None:
+        super().__init__(name, display_hand)
 
     def select_card_randomly(self, choices: List[Card]) -> Card:
         return random.choice(choices)
