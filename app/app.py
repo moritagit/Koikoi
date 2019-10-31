@@ -29,7 +29,7 @@ def main():
 
 @app.route('/select', methods=['POST'])
 def select():
-    message = 'あなたの番です'
+    message = ''
 
     # human turn
     was_human_win = gamemaster.process_one_turn(
@@ -49,8 +49,12 @@ def select():
             message = f'{point}文でCPの勝ちです'
 
     is_draw = (not (gamemaster.player1.hand or gamemaster.player2.hand))
-    if is_draw:
-        message = '流れです'
+
+    if not message:
+        if is_draw:
+            message = '流れです'
+        else:
+            message = 'あなたの番です'
 
     return render_template(
         'index.html',
