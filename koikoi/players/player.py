@@ -41,6 +41,10 @@ class Player(object):
         cards : ``List[Card]``
         """
         self.hand = sorted(cards)
+        self.share = ShareCards()
+        self.point_data = {
+            yaku: 0 for yaku in PointCalculator.YAKU2POINT.keys()
+        }
 
     def select_from_hand(self, field: Field, other) -> Card:
         """
