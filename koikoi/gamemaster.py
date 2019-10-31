@@ -105,11 +105,16 @@ class GameMaster(object):
         player.point_data = point_data
         self.formatter.format_yaku(updated_yaku)
 
+        # koikoi
         is_finish = False
         if updated_yaku:
-            is_koikoi = player.koikoi(self.field, other)
-            is_finish = (not is_koikoi)
+            if player.hand:
+                is_koikoi = player.koikoi(self.field, other)
+                is_finish = (not is_koikoi)
+            else:
+                is_finish = True
 
+        # if finished, output the field and hands
         if is_finish:
             point = sum([val for val in player.point_data.values()])
             self.finish_message = f'{point}文で{player.name}の勝ちです。'
