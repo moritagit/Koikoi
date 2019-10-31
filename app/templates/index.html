@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/static/css/index.css">
+        <title>こいこい</title>
+    </head>
+    <body>
+        {% if win %}
+            <div class="win">
+                <p> 勝ち </p>
+            </div>
+        {% endif %}
+        <div class="share">
+            {% for card in other.share.tolist() %}
+                <img src="/static/images/card/{{card.month}}_{{card.name}}.jpg">
+            {% endfor %}
+        </div>
+        <div class="hand_other">
+            {% for card in other.hand %}
+                <img src="/static/images/card/{{card.month}}_{{card.name}}.jpg">
+            {% endfor %}
+        </div>
+        <div class="field">
+            {% for card in field.cards %}
+                {% if ((loop.index - 1) % 6) == 0 %}
+                    <br>
+                {% endif %}
+                <img src="/static/images/card/{{card.month}}_{{card.name}}.jpg">
+            {% endfor %}
+        </div>
+        <div class="hand_player">
+            {% for card in player.hand %}
+                <a onclick="change.selected.value = '{{card}}';change.submit();">
+                    <img src=/static/images/card/{{card.month}}_{{card.name}}.jpg>
+                </a>
+            {% endfor %}
+        </div>
+        <form name="select" action="/select" method="post">
+            {% for card in player.hand %}
+                <input name="hands" type="hidden" value="{{card}}">
+            {% endfor %}
+            <input name="selected" type="hidden" value="">
+        </form>
+        <div class="share">
+            {% for card in player.share.tolist() %}
+                <img src=/static/images/card/{{card.month}}_{{card.name}}.jpg>
+            {% endfor %}
+        </div>
+    </body>
+</html>
