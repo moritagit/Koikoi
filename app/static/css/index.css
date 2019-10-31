@@ -2,22 +2,26 @@ body{
     background-color: #FFCC33;
 }
 .message{
-    background    : #FFFFCC;
+    background : #FFFFCC;
     margin : 50px;
 }
+.card{
+    width : 50px;
+    height : auto;
+}
 .field{
-    background    : #FFFFCC;
+    background : #FFFFCC;
     margin : 50px;
 }
 .share{
-    background    : #FFFFCC;
+    background : #FFFFCC;
     margin : 50px;
 }
 .hand_player{
-    background    : #FFFFCC;
+    background : #FFFFCC;
     margin : 50px;
 }
 .hand_other{
-    background    : #FFFFCC;
+    background : #FFFFCC;
     margin : 50px;
 }
