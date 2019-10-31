@@ -1,6 +1,10 @@
 body{
     background-color: #FFCC33;
 }
+.message{
+    background    : #FFFFCC;
+    margin : 50px;
+}
 .field{
     background    : #FFFFCC;
     margin : 50px;
