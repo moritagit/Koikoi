@@ -155,7 +155,7 @@ class GameMaster(object):
                 is_draw = False
                 break
 
-            is_finished = self.player1.hand or self.player2.hand
+            is_finished = (self.player1.hand or self.player2.hand)
 
         if is_draw:
             self.formatter.format_end_message('流れです')
