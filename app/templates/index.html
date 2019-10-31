@@ -18,13 +18,13 @@
             </div>
         {% endif %}
         <div class="share">
-            <p> 相手の取り札 </p>
+            <p> {{other.name}}の取り札 </p>
             {% for card in other.share.tolist() %}
                 <img src="/static/images/cards/{{card.month}}_{{card.name}}.jpg" alt="{{card.name}}" class="card">
             {% endfor %}
         </div>
         <div class="hand_other">
-            <p> 相手の手札 </p>
+            <p> {{other.name}}の手札 </p>
             {% for card in other.hand %}
                 <img src="/static/images/cards/{{card.month}}_{{card.name}}.jpg" alt="{{card.name}}" class="card">
             {% endfor %}
@@ -39,7 +39,7 @@
             {% endfor %}
         </div>
         <div class="hand_player">
-            <p> 自分の手札 </p>
+            <p> {{player.name}}の手札 </p>
             {% for card in player.hand %}
                 <a onclick="select.selected.value = '{{card}}';select.submit();">
                     <img src=/static/images/cards/{{card.month}}_{{card.name}}.jpg alt="{{card.name}}" class="card">
@@ -53,7 +53,7 @@
             <input name="selected" type="hidden" value="">
         </form>
         <div class="share">
-            <p> 自分の取り札 </p>
+            <p> {{player.name}}の取り札 </p>
             {% for card in player.share.tolist() %}
                 <img src=/static/images/cards/{{card.month}}_{{card.name}}.jpg alt="{{card.name}}" class="card">
             {% endfor %}
