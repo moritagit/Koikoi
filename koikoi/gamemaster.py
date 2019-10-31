@@ -123,36 +123,39 @@ class GameMaster(object):
         self.formatter.format_yaku_update(updated_yaku)
 
         # koikoi
-        is_finish = False
+        is_finished = False
         if updated_yaku:
             self.formatter.format_yaku(point_data)
             self.output_field(player, other)
             if player.hand:
                 is_koikoi = player.koikoi(self.field, other)
-                is_finish = (not is_koikoi)
+                is_finished = (not is_koikoi)
             else:
-                is_finish = True
+                is_finished = True
 
         # if finished, output the field and hands
-        if is_finish:
+        if is_finished:
             point = sum([val for val in player.point_data.values()])
             message = f'{point}文で{player.name}の勝ちです。'
             self.formatter.format_end_message(message)
 
-        return is_finish
+        return is_finished
 
     def run(self):
+        is_finished = True
         is_draw = True
-        while self.player1.hand or self.player2.hand:
-            is_finish = self.process_one_turn(self.player1, self.player2)
-            if is_finish:
+        while is_finished:
+            is_finished = self.process_one_turn(self.player1, self.player2)
+            if is_finished:
                 is_draw = False
                 break
 
-            is_finish = self.process_one_turn(self.player2, self.player1)
-            if is_finish:
+            is_finished = self.process_one_turn(self.player2, self.player1)
+            if is_finished:
                 is_draw = False
                 break
+
+            is_finished = self.player1.hand or self.player2.hand
 
         if is_draw:
             self.formatter.format_end_message('流れです')
