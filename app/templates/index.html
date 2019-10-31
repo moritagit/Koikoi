@@ -12,11 +12,9 @@
         }
     </style>
     <body>
-        {% if win %}
-            <div class="win">
-                <p> 勝ち </p>
-            </div>
-        {% endif %}
+        <div class="message">
+            <p> {{message}} </p>
+        </div>
         <div class="share">
             <p> {{other.name}}の取り札 </p>
             {% for card in other.share.tolist() %}
