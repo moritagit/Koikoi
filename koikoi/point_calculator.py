@@ -44,7 +44,7 @@ class PointCalculator(object):
                 point_data['四光'] = y2p['四光']
         elif (
             (len(share.data['light']) == 3)
-            and (n2c['柳の小野道風'] in share.data['light'])
+            and (n2c['柳の小野道風'] not in share.data['light'])
         ):
             point_data['三光'] = y2p['三光']
 
