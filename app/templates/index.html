@@ -41,7 +41,7 @@
         <div class="hand_player">
             <p> 自分の手札 </p>
             {% for card in player.hand %}
-                <a onclick="change.selected.value = '{{card}}';change.submit();">
+                <a onclick="select.selected.value = '{{card}}';select.submit();">
                     <img src=/static/images/cards/{{card.month}}_{{card.name}}.jpg alt="{{card.name}}" class="card">
                 </a>
             {% endfor %}
