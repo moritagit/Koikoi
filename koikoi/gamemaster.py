@@ -129,6 +129,8 @@ class GameMaster(object):
             self.output_field(player, other)
             if player.hand:
                 is_koikoi = player.koikoi(self.field, other)
+                if is_koikoi:
+                    self.formatter('こいこい')
                 is_finished = (not is_koikoi)
             else:
                 is_finished = True
