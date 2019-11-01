@@ -62,6 +62,7 @@ def select():
     if not message:
         if is_draw:
             message = '流れです'
+            gamemaster.formatter.format_end_message(message)
         else:
             message = 'あなたの番です'
 
