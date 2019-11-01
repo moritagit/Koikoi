@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/static/css/index.css">
+        <title>こいこい</title>
+    </head>
+    <style>
+        .card{
+            width: 50px;
+            height: auto;
+        }
+    </style>
+    <body>
+        <div class="reload">
+            <a href="/"> 初めから </a>
+        </div>
+        <div class="message">
+            <p> {{message}} </p>
+        </div>
+        <div class="share">
+            <p> {{other.name}}の取り札 </p>
+            {% for role_class in ['light', 'seed', 'strip', 'kasu'] %}
+                {% for card in other.share.data[role_class] %}
+                <img src="/static/images/cards/{{card.month}}_{{card.name}}.jpg" alt="{{card.name}}" class="card">
+                    {% endfor %}
+                &nbsp;
+            {% endfor %}
+        </div>
+        {% if other.display_hand %}
+            <div class="hand_other">
+                <p> {{other.name}}の手札 </p>
+                {% for card in other.hand %}
+                    <img src="/static/images/cards/{{card.month}}_{{card.name}}.jpg" alt="{{card.name}}" class="card">
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="field">
+            <p> 場 </p>
+            {% for card in field.cards %}
+                {% if ((loop.index - 1) % 6) == 0 %}
+                    <br>
+                {% endif %}
+                <img src="/static/images/cards/{{card.month}}_{{card.name}}.jpg" alt="{{card.name}}" class="card">
+            {% endfor %}
+        </div>
+        <div class="hand_player">
+            <p> {{player.name}}の手札 </p>
+            {% for card in player.hand %}
+                <a onclick="select.selected.value = '{{card}}';select.submit();">
+                    <img src=/static/images/cards/{{card.month}}_{{card.name}}.jpg alt="{{card.name}}" class="card">
+                </a>
+            {% endfor %}
+        </div>
+        <form name="select" action="/select" method="post">
+            {% for card in player.hand %}
+                <input name="hands" type="hidden" value="{{card}}">
+            {% endfor %}
+            <input name="selected" type="hidden" value="">
+        </form>
+        <div class="share">
+            <p> {{player.name}}の取り札 </p>
+            {% for role_class in ['light', 'seed', 'strip', 'kasu'] %}
+                {% for card in player.share.data[role_class] %}
+                    <img src=/static/images/cards/{{card.month}}_{{card.name}}.jpg alt="{{card.name}}" class="card">
+                {% endfor %}
+                &nbsp;
+            {% endfor %}
+        </div>
+    </body>
+</html>

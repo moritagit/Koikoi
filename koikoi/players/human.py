@@ -14,16 +14,17 @@ class Human(Player):
 
     Parameters
     ----------
-    cards : ``List[Card]``
     name : ``str``, optional (default = 'Human')
+        Player name.
+    display_hand : ``bool``, optional (default = True)
+        Determines whether to display hands.
     """
     def __init__(
         self,
-        cards: List[Card],
         name: str = 'Human',
+        display_hand: bool = True,
     ) -> None:
-
-        super().__init__(cards, name)
+        super().__init__(name, display_hand)
 
     def select_card_from_name(
         self,

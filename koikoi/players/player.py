@@ -14,17 +14,33 @@ class Player(object):
 
     Parameters
     ----------
-    cards : ``List[Card]``
     name : ``str``, optional (default = 'Player')
+        Player name.
+    display_hand : ``bool``, optional (default = True)
+        Determines whether to display hands.
     """
     def __init__(
         self,
-        cards: List[Card],
         name: str = 'Player',
+        display_hand: bool = True,
     ) -> None:
 
         self.name = name
-        self.hand = cards
+        self.display_hand = display_hand
+
+        self.hand = []
+        self.share = ShareCards()
+        self.point_data = {
+            yaku: 0 for yaku in PointCalculator.YAKU2POINT.keys()
+        }
+
+    def build(self, cards: List[Card]):
+        """
+        Parameters
+        ----------
+        cards : ``List[Card]``
+        """
+        self.hand = sorted(cards)
         self.share = ShareCards()
         self.point_data = {
             yaku: 0 for yaku in PointCalculator.YAKU2POINT.keys()

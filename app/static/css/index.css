@@ -1,0 +1,27 @@
+body{
+    background-color: #FFCC33;
+}
+.message{
+    background : #FFFFCC;
+    margin : 50px;
+}
+.card{
+    width : 50px;
+    height : auto;
+}
+.field{
+    background : #FFFFCC;
+    margin : 50px;
+}
+.share{
+    background : #FFFFCC;
+    margin : 50px;
+}
+.hand_player{
+    background : #FFFFCC;
+    margin : 50px;
+}
+.hand_other{
+    background : #FFFFCC;
+    margin : 50px;
+}

@@ -260,7 +260,10 @@ class ShareCards(object):
         return sum(self.tolist())
 
     def tolist(self) -> List[Card]:
-        return [len(lst) for lst in self.data.values()]
+        share_list = []
+        for lst in self.data.values():
+            share_list.extend(lst)
+        return share_list
 
     def append(self, card: Card) -> None:
         self.data[card.role_class].append(card)
