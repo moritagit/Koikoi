@@ -204,17 +204,17 @@ class Card(object):
 
         Parameters
         ----------
-        name : `str`
+        name : ``str``
             Card name.
 
         Returns
         -------
-        card : `Card`
+        card : ``Card``
             A card made from string.
 
         Raises
         ------
-        `UnknownCardNameError`
+        ``UnknownCardNameError``
         """
         if name.count('の') != 1:
             raise UnknownCardNameError(name)
@@ -237,6 +237,7 @@ class UnknownCardNameError(Exception):
     Parameters
     ----------
     name : ``str``
+        A (wrong) card name.
     """
     def __init__(self, name: str) -> None:
         self.__message = f'{name} does not exist.'
@@ -268,7 +269,7 @@ class Deck(object):
 
 
 class ShareCards(object):
-    """Represents cards player got."""
+    """Represents cards a player got in the game."""
     def __init__(self) -> None:
         self.data = {
             'light': [],
