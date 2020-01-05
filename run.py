@@ -10,7 +10,7 @@ import koikoi
 
 @click.command()
 @click.option('--mode', '-m', default='console')
-@click.option('--player', '-p', default=None)
+@click.option('--player', '-p', default='')
 def cmd(mode: str, player: str):
     mode = mode.lower()
     if mode == 'console':
@@ -21,7 +21,7 @@ def cmd(mode: str, player: str):
         raise ValueError(f'Unknown mode {mode}')
 
 
-def run_console(player: Optional[koikoi.Player] = None):
+def run_console(player: str = ''):
     player = player.lower()
 
     if player == 'rulebase':

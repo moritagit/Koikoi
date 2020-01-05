@@ -186,6 +186,7 @@ class RuleBase(Player):
         return random.choice(choices)
 
     def select_card_sequentialy(
+        self,
         cards: List[Card],
         reverse: bool = False,
     ) -> Card:
