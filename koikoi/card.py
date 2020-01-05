@@ -199,6 +199,9 @@ class Card(object):
 
     @classmethod
     def from_string(cls, name):
+        if name.count('の') != 1:
+            raise UnknownCardNameError(name)
+
         target_flower, target_role = name.split('の')
         for month, data in MONTH2CARD.items():
             if target_flower == data['flower']:
