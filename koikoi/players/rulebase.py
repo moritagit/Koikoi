@@ -206,7 +206,12 @@ class RuleBase(Player):
         return self.select_card_sequentialy(choices)
 
     def koikoi(self, field: Field, other: Player) -> bool:
-        return (random.random() < 0.5)
+        point = sum([val for val in self.point_data.values()])
+        flag = (
+            (point > 5)
+            or (random.random() < 0.5)
+        )
+        return flag
 
     def select_from_hand(self, field: Field, other: Player) -> Card:
         m2c_hand = make_month2cards(self.hand)
