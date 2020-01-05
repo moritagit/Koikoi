@@ -199,6 +199,23 @@ class Card(object):
 
     @classmethod
     def from_string(cls, name):
+        """
+        Makes Card object from string representation, like '芒の月'.
+
+        Parameters
+        ----------
+        name : `str`
+            Card name.
+
+        Returns
+        -------
+        card : `Card`
+            A card made from string.
+
+        Raises
+        ------
+        `UnknownCardNameError`
+        """
         if name.count('の') != 1:
             raise UnknownCardNameError(name)
 
@@ -208,7 +225,8 @@ class Card(object):
                 for role_class in ROLE_CLASSES:
                     for index, role in enumerate(data[role_class]):
                         if target_role == role:
-                            return Card(month, role_class, index)
+                            card = Card(month, role_class, index)
+                            return card
         raise UnknownCardNameError(name)
 
 
