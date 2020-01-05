@@ -279,7 +279,7 @@ class ShareCards(object):
         }
 
     def __len__(self) -> int:
-        return sum(self.tolist())
+        return len(self.tolist())
 
     def tolist(self) -> List[Card]:
         share_list = []
