@@ -8,6 +8,7 @@ flake8 = "*"
 
 [packages]
 flask = "*"
+click = "*"
 
 [requires]
 python_version = "3.7"
