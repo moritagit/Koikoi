@@ -39,13 +39,14 @@ class GameMaster(object):
                 _make_deck_and_field()
             return
 
-        def _distribute_card(player):
-            player.build([self.deck.pop() for _ in range(8)])
-
         _make_deck_and_field()
-        _distribute_card(self.player1)
-        _distribute_card(self.player2)
+        self.player1.build(self.draw_card(n=8))
+        self.player2.build(self.draw_card(n=8))
         self.is_finished = False
+
+    def draw_card(self, n: int = 1) -> List[Card]:
+        cards = [self.deck.pop() for _ in range(n)]
+        return cards
 
     def put_card_to_field(
         self,
@@ -114,7 +115,7 @@ class GameMaster(object):
         self.put_card_to_field(selected_card, player, other)
 
         # draw card from deck
-        drawn_card = self.deck.pop()
+        drawn_card = self.draw_card()[0]
         self.formatter.format_draw(drawn_card)
         self.put_card_to_field(drawn_card, player, other)
 

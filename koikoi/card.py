@@ -199,13 +199,34 @@ class Card(object):
 
     @classmethod
     def from_string(cls, name):
+        """
+        Makes Card object from string representation, like '芒の月'.
+
+        Parameters
+        ----------
+        name : ``str``
+            Card name.
+
+        Returns
+        -------
+        card : ``Card``
+            A card made from string.
+
+        Raises
+        ------
+        ``UnknownCardNameError``
+        """
+        if name.count('の') != 1:
+            raise UnknownCardNameError(name)
+
         target_flower, target_role = name.split('の')
         for month, data in MONTH2CARD.items():
             if target_flower == data['flower']:
                 for role_class in ROLE_CLASSES:
                     for index, role in enumerate(data[role_class]):
                         if target_role == role:
-                            return Card(month, role_class, index)
+                            card = Card(month, role_class, index)
+                            return card
         raise UnknownCardNameError(name)
 
 
@@ -216,6 +237,7 @@ class UnknownCardNameError(Exception):
     Parameters
     ----------
     name : ``str``
+        A (wrong) card name.
     """
     def __init__(self, name: str) -> None:
         self.__message = f'{name} does not exist.'
@@ -247,7 +269,7 @@ class Deck(object):
 
 
 class ShareCards(object):
-    """Represents cards player got."""
+    """Represents cards a player got in the game."""
     def __init__(self) -> None:
         self.data = {
             'light': [],
@@ -257,7 +279,7 @@ class ShareCards(object):
         }
 
     def __len__(self) -> int:
-        return sum(self.tolist())
+        return len(self.tolist())
 
     def tolist(self) -> List[Card]:
         share_list = []

@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
 
 
+import io
+import sys
 from typing import List
 
 from koikoi.card import Card, UnknownCardNameError
 from koikoi.field import Field
 from koikoi.players.player import Player
+
+
+sys.stdin = io.TextIOWrapper(
+    sys.stdin.buffer, encoding='utf-8', errors='replace',
+)
 
 
 class Human(Player):
