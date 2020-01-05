@@ -1,23 +1,36 @@
 # -*- coding: utf-8 -*-
 
 
+from typing import Optional
+
 import click
+
+import koikoi
 
 
 @click.command()
 @click.option('--mode', '-m', default='console')
-def cmd(mode: str):
-    if mode.lower() == 'console':
-        run_console()
-    elif mode.lower() == 'app':
+@click.option('--player', '-p', default=None)
+def cmd(mode: str, player: str):
+    mode = mode.lower()
+    if mode == 'console':
+        run_console(player=player)
+    elif mode == 'app':
         run_app()
     else:
         raise ValueError(f'Unknown mode {mode}')
 
 
-def run_console():
-    import koikoi
+def run_console(player: Optional[koikoi.Player] = None):
+    player = player.lower()
+
+    if player == 'rulebase':
+        player_cpu = koikoi.players.RuleBase()
+    else:
+        player_cpu = koikoi.players.RandomCPU()
+
     gm = koikoi.GameMaster(
+        player2=player_cpu,
         formatter=koikoi.Console(),
     )
     gm.build()
